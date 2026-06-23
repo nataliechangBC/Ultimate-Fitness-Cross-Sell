@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Fitness - Premium Checkout & Bundle</title>
+    <!-- Enlace al archivo CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Iconos de Material Design -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body>
+
+    <!-- VISTA 1: TIENDA -->
+    <div id="store-view">
+        <!-- Header -->
+        <header>
+            <img src="ultimate-logo.png" alt="Ultimate Fitness" class="brand-logo-img" onclick="backToStore()">
+            <nav class="main-nav-links">
+                <a href="#">MÁQUINAS</a>
+                <a href="#">LÍNEA COMERCIAL</a>
+                <a href="#">EQUIPAMIENTO</a>
+                <a href="#">VESTUARIO</a>
+                <a href="#">DEPORTES Y DISCIPLINAS</a>
+                <a href="#">REGALOS PARA PAPÁ</a>
+            </nav>
+            <div class="header-right">
+                <div class="search-bar">
+                    <span class="material-symbols-outlined">search</span>
+                    <input type="text" placeholder="Buscar">
+                    <span class="material-symbols-outlined clear">close</span>
+                </div>
+                <button class="cart-icon" onclick="openCart()">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="cart-badge" id="cart-badge-count">0</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Barra de Beneficios -->
+        <div class="uf-benefits-bar">
+            <div class="benefit-item"><span class="material-symbols-outlined">local_shipping</span> Envío Express</div>
+            <div class="benefit-item"><span class="material-symbols-outlined">credit_card</span> Hasta 12 cuotas sin intereses</div>
+            <div class="benefit-item"><span class="material-symbols-outlined">verified</span> Garantía 100% hasta 12 meses</div>
+            <div class="benefit-item"><span class="material-symbols-outlined">storefront</span> Retiros gratis en tiendas</div>
+            <div class="benefit-item"><span class="material-symbols-outlined">build</span> Armados y Servicio técnico</div>
+        </div>
+
+        <main>
+            <div class="breadcrumb">
+                Inicio / Máquinas
+            </div>
+
+            <!-- SECCIÓN PRINCIPAL DEL PRODUCTO -->
+            <div class="uf-product-container">
+                
+                <!-- Galería Principal Izquierda -->
+                <div class="uf-gallery-stack">
+                    <div class="uf-main-image-large">
+                        <img id="main-product-img" src="" alt="Trotadora Principal">
+                    </div>
+                    <div class="uf-thumbnails-row" id="uf-thumbnails">
+                        <!-- JS Inyecta las miniaturas aquí -->
+                    </div>
+                </div>
+
+                <!-- Detalles Derecha -->
+                <div class="uf-details">
+                    <div class="uf-category">Ultimate Fitness</div>
+                    <h1 class="uf-title">Trotadora Escaladora Eléctrica G750 Premium High Performance</h1>
+                    
+                    <div class="uf-prices">
+                        <span class="uf-current">$1.399.990</span>
+                        <span class="uf-old">$2.500.000</span>
+                        <span class="uf-discount-badge">-46% OFF</span>
+                    </div>
+                    <p style="font-size: 13px; color: #555; margin-bottom: 15px;">Hasta 12 cuotas sin interés de $116.666</p>
+
+                    <p class="uf-description">
+                        <b>Diseñada para uso intensivo en gimnasios y centros deportivos</b>, la Trotadora Escaladora Eléctrica G750 Premium High Performance transforma cualquier entrenamiento en un... 
+                        <a href="#desc" style="color:var(--premium-black); font-weight:bold; text-decoration: underline;">Leer más</a>
+                    </p>
+
+                    <div class="availability-notice">
+                        Retiros y Despachos a partir del 24 de julio ¡Cómpralo a Precio Rebajado!<br>
+                        <span style="color:#555; font-size:12px; font-weight:normal;">Para más información sobre las reservas y tiempos de entrega haz clic <a href="#" style="color:var(--brand-color);">aquí.</a></span>
+                    </div>
+
+                    <!-- Botonera Principal -->
+                    <div class="uf-add-section">
+                        <div class="uf-qty-controls">
+                            <button class="qty-btn" onclick="changeMainQty(-1)">-</button>
+                            <span id="main-qty" class="qty-number">1</span>
+                            <button class="qty-btn" onclick="changeMainQty(1)">+</button>
+                        </div>
+                        <button class="uf-add-btn" onclick="addMainProduct()">Agregar Al Carrito</button>
+                    </div>
+
+                    <div class="uf-sku">SKU: 74734701532890</div>
+
+                    <!-- Acordeones -->
+                    <div class="uf-accordions">
+                        <div class="accordion-item" onclick="toggleAccordion(this)">
+                            <div class="accordion-header">
+                                <span>Especificaciones Técnicas</span>
+                                <span class="material-symbols-outlined arrow">add</span>
+                            </div>
+                            <div class="accordion-content">
+                                Motor de 4.0 HP Peak, Inclinación de 15 niveles, Pantalla Táctil de 21.5". Peso máximo de usuario: 180kg.
+                            </div>
+                        </div>
+                        <div class="accordion-item" onclick="toggleAccordion(this)">
+                            <div class="accordion-header">
+                                <span>Servicio de Armado</span>
+                                <span class="material-symbols-outlined arrow">add</span>
+                            </div>
+                            <div class="accordion-content">
+                                Contamos con servicio de armado a domicilio a nivel nacional.
+                            </div>
+                        </div>
+                        <div class="accordion-item" onclick="toggleAccordion(this)">
+                            <div class="accordion-header">
+                                <span>Tiempos de entrega</span>
+                                <span class="material-symbols-outlined arrow">add</span>
+                            </div>
+                            <div class="accordion-content">
+                                Despachos entre 3 a 5 días hábiles en RM. Regiones entre 5 a 10 días hábiles.
+                            </div>
+                        </div>
+                        <div class="accordion-item" onclick="toggleAccordion(this)">
+                            <div class="accordion-header">
+                                <span>Certificaciones y Garantía</span>
+                                <span class="material-symbols-outlined arrow">add</span>
+                            </div>
+                            <div class="accordion-content">
+                                Garantía de por vida en el chasis. 1 año en motor y componentes electrónicos.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BUNDLE EN PÁGINA DE PRODUCTO -->
+                    <div class="pdp-bundle-section">
+                        <h3 class="bundle-title">Completa tu equipo y Ahorra</h3>
+                        <div id="pdp-cross-sell-container">
+                            <!-- JS inyecta la lista de cross-sell aquí -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SECCIONES RICAS (METAFIELDS / INFOGRAFÍAS) -->
+            <div class="rich-content-wrapper">
+                <div class="features-grid-4">
+                    <div class="feat-card">
+                        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=400&q=80" alt="Inclinación">
+                        <h4>EL ENTRENAMIENTO MÁS EFICAZ: SIMULA ASCENSOS DE MONTAÑA</h4>
+                        <p>Revoluciona tu cardio. La inclinación extrema te permite quemar hasta 5 veces más calorías que en una trotadora convencional, logrando resultados visibles en la mitad de tiempo.</p>
+                    </div>
+                    <div class="feat-card">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=400&q=80" alt="Garantía">
+                        <h4>INGENIERÍA SUPERIOR: GARANTÍA DE POR VIDA</h4>
+                        <p>Una pieza central para tu gimnasio en casa, construida para durar para siempre. Su chasis de acero y su garantía de por vida son el reflejo de una calidad sin compromisos.</p>
+                    </div>
+                    <div class="feat-card">
+                        <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=400&q=80" alt="Pantalla">
+                        <h4>PANTALLA TÁCTIL INMERSIVA DE 21.5"</h4>
+                        <p>La motivación nunca se vio tan bien. Controla tu entrenamiento, recorre rutas virtuales o disfruta de tus series favoritas en una pantalla HD gigante que te sumerge por completo en la acción.</p>
+                    </div>
+                    <div class="feat-card">
+                        <img src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=400&q=80" alt="Piernas">
+                        <h4>ESCULPE TUS PIERNAS Y GLÚTEOS: CARDIO DE FUERZA Y BAJO IMPACTO</h4>
+                        <p>Consigue la intensidad de un sprint y el poder tonificador de una escaladora, pero con la suavidad de una caminata. Protege tus rodillas mientras activas al máximo toda tu cadena posterior.</p>
+                    </div>
+                </div>
+
+                <div class="alt-section left-img-layout">
+                    <div class="alt-img">
+                        <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=800&q=80" alt="Conectividad">
+                    </div>
+                    <div class="alt-text">
+                        <h3>LIBERTAD TOTAL: CONECTIVIDAD CON TUS APPS FAVORITAS</h3>
+                        <p>A diferencia de los ecosistemas cerrados, tú eliges tu experiencia. Conecta fácilmente con apps como Kinomap, Zwift o FitShow y entrena a tu manera, sin suscripciones forzadas.</p>
+                    </div>
+                </div>
+
+                <div class="alt-section right-img-layout">
+                    <div class="alt-text">
+                        <h3 style="font-size: 28px;">TU RITMO. TUS REGLAS. TU VICTORIA.</h3>
+                    </div>
+                    <div class="alt-img hotspot-container">
+                        <img src="https://images.unsplash.com/photo-1554244933-d876deb6b2ff?auto=format&fit=crop&w=800&q=80" alt="Hotspots">
+                        <div class="hotspot" style="top: 35%; left: 60%;">
+                            <div class="dot"></div>
+                            <div class="hotspot-card">Motor: Peak 4 HP</div>
+                        </div>
+                        <div class="hotspot" style="top: 85%; left: 30%;">
+                            <div class="dot"></div>
+                            <div class="hotspot-card">Amortiguación Pro</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="extra-details-grid">
+                    <div class="detail-block">
+                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=600&q=80" alt="Detail 1">
+                        <div class="detail-overlay">
+                            <h5>GARANTÍA ULTIMATE</h5>
+                            <p>Siente el respaldo de los más grandes.</p>
+                        </div>
+                    </div>
+                    <div class="detail-block">
+                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=600&q=80" alt="Detail 2">
+                        <div class="detail-overlay">
+                            <h5>PORTA BOTELLAS INTEGRADO</h5>
+                            <p>Mantente hidratado en todo momento con su diseño inteligente.</p>
+                        </div>
+                    </div>
+                    <div class="detail-block">
+                        <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=600&q=80" alt="Detail 3">
+                        <div class="detail-overlay">
+                            <h5>DISPOSITIVO DE SEGURIDAD</h5>
+                            <p>Mantente seguro en todo momento.</p>
+                        </div>
+                    </div>
+                    <div class="detail-block">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80" alt="Detail 4">
+                        <div class="detail-overlay">
+                            <h5>AGARRE Y DURABILIDAD SUPERIOR</h5>
+                            <p>Diseñada con material de neumáticos.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+        <!-- DRAWER DEL CARRITO -->
+        <div class="cart-drawer" id="cartDrawer">
+            <div class="cart-header">
+                <h2>(<span id="cart-header-count">0</span>) <span class="material-symbols-outlined" style="vertical-align: middle; margin: 0 5px;">shopping_cart</span> Carrito de compra</h2>
+                <button class="close-cart" onclick="closeCart()">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <div class="cart-body">
+                <div class="cart-items-wrapper" id="cart-items-container"></div>
+
+                <div class="cross-sell-section" id="cross-sell-container">
+                    <div class="cross-sell-header">
+                        <h3>Completa tu Pack</h3>
+                        <span class="material-symbols-outlined" style="color: #999;">expand_less</span>
+                    </div>
+                    
+                    <div class="carousel-wrapper">
+                        <button class="carousel-arrow left" onclick="scrollCarousel(-1)">
+                            <span class="material-symbols-outlined">chevron_left</span>
+                        </button>
+                        <div class="cross-sell-carousel" id="cross-sell-list"></div>
+                        <button class="carousel-arrow right" onclick="scrollCarousel(1)">
+                            <span class="material-symbols-outlined">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOOTER PREMIUM -->
+            <div class="cart-footer">
+                <div class="shipping-notice">
+                    <span id="shipping-text-msg">Felicitaciones, tienes <b>envío GRATIS</b></span>
+                    <a href="#" onclick="closeCart()">Seguir comprando</a>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="shipping-progress-fill" style="width: 100%;"></div>
+                </div>
+
+                <div class="summary-details">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="cart-footer-subtotal" style="font-weight: bold;">$0</span>
+                    </div>
+                    <div class="summary-row total-row">
+                        <span>TOTAL</span>
+                        <div class="total-right">
+                            <span class="total-old" id="cart-footer-old-total">$0</span>
+                            <span class="total-new" id="cart-footer-total">$0</span>
+                            <div class="total-savings" id="cart-footer-savings">Ahorras $0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="checkout-btn-premium" onclick="processCheckout()" id="checkout-btn" style="margin-bottom: 0;">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">lock</span> CONTINUAR COMPRA
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VISTA 2: CHECKOUT -->
+    <div id="checkout-view" style="display: none;">
+        <div class="checkout-container">
+            <div class="checkout-left">
+                <div class="checkout-header" style="display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;">
+                    <span class="material-symbols-outlined" onclick="backToStore()" style="position: absolute; left: 0; cursor:pointer; font-size: 28px; color: var(--premium-black); transition: color 0.3s;" onmouseover="this.style.color='var(--brand-color)'" onmouseout="this.style.color='var(--premium-black)'">arrow_back</span>
+                    <img src="ultimate-logo.png" alt="Ultimate Fitness" class="brand-logo-img" style="height: 45px; cursor: pointer;" onclick="backToStore()">
+                </div>
+                
+                <p style="text-align: center; color: #666; font-size: 13px; margin-bottom: 15px;">Pago Exprés</p>
+                <div class="express-checkout-buttons">
+                    <button class="btn-express shop-pay">Shop</button>
+                    <button class="btn-express paypal">PayPal</button>
+                    <button class="btn-express gpay">G Pay</button>
+                </div>
+                <div class="separator">O</div>
+
+                <div class="checkout-section">
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 15px;">
+                        <h3>Contacto</h3>
+                        <a href="#" style="color: var(--brand-color); text-decoration: none; font-size: 14px; font-weight: bold;">Iniciar Sesión</a>
+                    </div>
+                    <input type="email" class="form-input" placeholder="Correo electrónico">
+                    <label class="checkbox-label">
+                        <input type="checkbox" checked> Enviarme noticias y ofertas
+                    </label>
+                </div>
+
+                <div class="checkout-section">
+                    <h3 style="margin-bottom: 15px;">Despacho</h3>
+                    <div class="form-row">
+                        <input type="text" class="form-input" placeholder="Nombres">
+                        <input type="text" class="form-input" placeholder="Apellidos">
+                    </div>
+                    <input type="text" class="form-input" placeholder="Dirección exacta">
+                    
+                    <button class="checkout-btn-premium" style="margin-top: 20px; border-radius: 4px;" onclick="alert('¡Compra finalizada con éxito!')">
+                        Pagar Ahora
+                    </button>
+                </div>
+            </div>
+
+            <div class="checkout-right">
+                <div id="checkout-summary-items"></div>
+                <div class="summary-totals" style="margin-top: 30px;">
+                    <div class="summary-line">
+                        <span>Subtotal · <span id="checkout-item-count">0</span> artículos</span>
+                        <span id="checkout-subtotal" style="font-weight: bold;">$0</span>
+                    </div>
+                    <div class="summary-total-line">
+                        <span>Total</span>
+                        <span><span style="font-size:12px; color:#666; margin-right:5px;">CLP</span><span id="checkout-total">$0</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
