@@ -16,7 +16,9 @@ const mainProductInfo = {
         'https://images.unsplash.com/photo-1554244933-d876deb6b2ff?auto=format&fit=crop&w=800&q=80',
         'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80',
         'https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=800&q=80',
-        'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=80'
+        'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=80'
     ]
 };
 
@@ -25,42 +27,45 @@ const crossSellData = [
         id: 'c1',
         name: 'Set Mancuernas 15 kg Pro',
         sku: '68567001554630',
+        description: 'Transición rápida de entrenamiento ligero a intenso. Estas mancuernas de 15kg con diseño ergonómico y agarre antideslizante te permiten ajustar el peso ideal para cada ejercicio. Perfecto para tonificación muscular y entrenamientos de fuerza en casa.',
         msrp: 120000,        
         salePrice: 89900,    
         bundlePrice: 85400,  
         discountText: '25% Dscto. + 5% Extra Pack',
         isMain: false,
         variants: [
-            { hex: '#111111', colorName: 'Negro', img: 'https://images.pexels.com/photos/39671/physiotherapy-weight-training-dumbbell-exercise-balls-39671.jpeg?auto=compress&cs=tinysrgb&w=300' },
-            { hex: '#cc0000', colorName: 'Rojo', img: 'https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=300' }
+            { hex: '#111111', colorName: 'Negro', img: 'mancuernas.png' },
+            { hex: '#cc0000', colorName: 'Rojo', img: 'mancuernas.png' }
         ]
     },
     {
         id: 'c2',
         name: 'Disco Olímpico Bumper 20 kg',
         sku: '68567001554625',
+        description: 'Discos olímpicos de alta resistencia, ideales para levantamiento de pesas, powerlifting y crossfit. Diseñados con núcleo de acero y cobertura de goma para reducir el rebote y proteger el suelo de tu espacio de entrenamiento.',
         msrp: 80000,
         salePrice: 60000,
         bundlePrice: 57000,
         discountText: '25% Dscto. + 5% Extra Pack',
         isMain: false,
         variants: [
-            { hex: '#111111', colorName: 'Negro', img: 'https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=300' },
-            { hex: '#1e3a8a', colorName: 'Azul Marino', img: 'https://images.pexels.com/photos/39671/physiotherapy-weight-training-dumbbell-exercise-balls-39671.jpeg?auto=compress&cs=tinysrgb&w=300' }
+            { hex: '#111111', colorName: 'Negro', img: 'disco.png' },
+            { hex: '#1e3a8a', colorName: 'Azul Marino', img: 'disco.png' }
         ]
     },
     {
         id: 'c3',
         name: 'Cinturón Levantamiento Pesas',
         sku: '69155466249784',
+        description: 'Protege tu zona lumbar durante los levantamientos pesados. Fabricado con materiales de primera calidad que garantizan durabilidad y comodidad. Su sistema de ajuste seguro estabiliza tu core para que levantes más peso con mayor seguridad.',
         msrp: 30000,
         salePrice: 20000,
         bundlePrice: 19000,
         discountText: '33% Dscto. + 5% Extra Pack',
         isMain: false,
         variants: [
-            { hex: '#111111', colorName: 'Negro', img: 'https://images.pexels.com/photos/1978505/pexels-photo-1978505.jpeg?auto=compress&cs=tinysrgb&w=300' },
-            { hex: '#555555', colorName: 'Gris', img: 'https://images.pexels.com/photos/1978505/pexels-photo-1978505.jpeg?auto=compress&cs=tinysrgb&w=300' }
+            { hex: '#111111', colorName: 'Negro', img: 'cinturon.png' },
+            { hex: '#555555', colorName: 'Gris', img: 'cinturon.png' }
         ]
     }
 ];
@@ -70,48 +75,46 @@ let mainProductQty = 1;
 let currentMainVariantIdx = 0;
 let crossSellSelections = { 'c1': 0, 'c2': 0, 'c3': 0 };
 let pdpCrossSellSelections = { 'c1': 0, 'c2': 0, 'c3': 0 };
+let currentModalProductId = null;
 const FREE_SHIPPING_THRESHOLD = 2000000; 
 
 function getFallbackImg(text) {
-    return `https://placehold.co/300x300/f5f5f5/333333?text=${encodeURIComponent(text)}`;
+    return `https://placehold.co/300x300/ffffff/333333?text=${encodeURIComponent(text)}`;
 }
 
-// Formato de Peso Chileno sin decimales
 function formatMoney(amount) {
     return '$' + Math.round(amount).toLocaleString('es-CL');
 }
 
-// --- PÁGINA DE PRODUCTO A PRUEBA DE FALLOS ---
+// --- GALERÍA PRINCIPAL ---
 function initProductPage() {
-    try {
-        const thumbnailsContainer = document.getElementById('uf-thumbnails');
-        const mainImg = document.getElementById('main-product-img');
-        
-        if (thumbnailsContainer && mainImg) {
-            thumbnailsContainer.innerHTML = '';
-            mainProductInfo.galleryImages.forEach((imgUrl, idx) => {
-                const fallback = getFallbackImg('Trotadora');
-                const imgHTML = `<img src="${imgUrl}" class="uf-thumb ${idx === currentMainVariantIdx ? 'active' : ''}" onclick="selectMainThumbnail(${idx})" onerror="this.onerror=null; this.src='${fallback}'">`;
-                thumbnailsContainer.insertAdjacentHTML('beforeend', imgHTML);
-            });
-            
-            mainImg.src = mainProductInfo.galleryImages[currentMainVariantIdx] || getFallbackImg('Trotadora');
-            mainImg.onerror = function() { this.onerror=null; this.src = getFallbackImg('Trotadora'); };
-        }
-    } catch(err) {
-        console.error("Gallery section not found or updated correctly.", err);
+    const galleryGrid = document.getElementById('main-gallery');
+    if (galleryGrid) {
+        galleryGrid.innerHTML = '';
+        mainProductInfo.galleryImages.forEach(imgUrl => {
+            const fallback = getFallbackImg('Trotadora');
+            const imgHTML = `<div class="gallery-item"><img src="${imgUrl}" onerror="this.onerror=null; this.src='${fallback}'"></div>`;
+            galleryGrid.insertAdjacentHTML('beforeend', imgHTML);
+        });
     }
-
-    try {
-        renderPDPCrossSells(); 
-    } catch(err) {
-        console.error("Cross-sell section not found or updated correctly.", err);
-    }
+    renderPDPCrossSells(); 
 }
 
-function selectMainThumbnail(idx) {
-    currentMainVariantIdx = idx;
-    initProductPage();
+function toggleGallery() {
+    const grid = document.getElementById('main-gallery');
+    const wrap = document.getElementById('gallery-toggle-wrap');
+    const btn = document.getElementById('btn-gallery-toggle');
+    
+    grid.classList.toggle('collapsed');
+    
+    if (grid.classList.contains('collapsed')) {
+        btn.innerText = 'Ver toda la galería';
+        wrap.classList.remove('expanded');
+        window.scrollTo({ top: grid.offsetTop - 100, behavior: 'smooth' });
+    } else {
+        btn.innerText = 'Mostrar menos';
+        wrap.classList.add('expanded');
+    }
 }
 
 function changeMainQty(change) {
@@ -120,12 +123,69 @@ function changeMainQty(change) {
     document.getElementById('main-qty').innerText = mainProductQty;
 }
 
-// --- ACORDEONES ---
 function toggleAccordion(element) {
     element.classList.toggle("active");
 }
 
-// --- RENDERIZAR CROSS SELL EN PÁGINA DE PRODUCTO ---
+// --- POP-UP MODAL (VER DETALLES) PREMIUM ---
+function openDetailsModal(productId) {
+    const product = crossSellData.find(p => p.id === productId);
+    if (!product) return;
+    
+    currentModalProductId = productId;
+    const selectedIdx = pdpCrossSellSelections[productId];
+    
+    document.getElementById('modal-title').innerText = product.name;
+    document.getElementById('modal-desc').innerText = product.description;
+    document.getElementById('modal-msrp').innerText = `Normal: ${formatMoney(product.msrp)}`;
+    document.getElementById('modal-sale').innerText = formatMoney(product.salePrice);
+    document.getElementById('modal-bundle').innerText = formatMoney(product.bundlePrice);
+    
+    let savings = product.msrp - product.bundlePrice;
+    document.getElementById('modal-savings').innerText = `Ahorras ${formatMoney(savings)}`;
+    
+    updateModalVariantUI(product, selectedIdx);
+    
+    document.getElementById('detailsModal').classList.add('active');
+}
+
+function updateModalVariantUI(product, selectedIdx) {
+    document.getElementById('modal-img').src = product.variants[selectedIdx].img;
+    document.getElementById('modal-color-name').innerText = product.variants[selectedIdx].colorName;
+    
+    const colorsHtml = product.variants.map((v, idx) => `
+        <div class="color-dot ${idx === selectedIdx ? 'active' : ''}" 
+             style="background-color: ${v.hex};"
+             onclick="changeModalColor('${product.id}', ${idx})">
+        </div>
+    `).join('');
+    document.getElementById('modal-colors').innerHTML = colorsHtml;
+}
+
+function changeModalColor(productId, idx) {
+    pdpCrossSellSelections[productId] = idx; 
+    const product = crossSellData.find(p => p.id === productId);
+    updateModalVariantUI(product, idx);
+    renderPDPCrossSells(); 
+}
+
+function closeDetailsModal(event) {
+    document.getElementById('detailsModal').classList.remove('active');
+}
+
+function addFromModal() {
+    if(cart.length === 0) {
+        addToCart(mainProductInfo, mainProductQty, currentMainVariantIdx, true); 
+    }
+    const product = crossSellData.find(p => p.id === currentModalProductId);
+    const selectedVariant = pdpCrossSellSelections[currentModalProductId];
+    if(product) addToCart(product, 1, selectedVariant, false, 'pdp');
+    
+    closeDetailsModal();
+    openCart();
+}
+
+// --- RENDERIZAR CROSS SELL EN PÁGINA ---
 function changePDPCrossSellColor(productId, variantIdx) {
     pdpCrossSellSelections[productId] = variantIdx;
     renderPDPCrossSells();
@@ -148,18 +208,19 @@ function renderPDPCrossSells() {
             </div>
         `).join('');
         
-        // ESTRUCTURA DE DOBLE DESCUENTO (MSRP Tachado / Oferta Tachada / Pack)
         const cardHTML = `
             <div class="pdp-cs-card">
-                <img src="${currentImg}" alt="${product.name}" onerror="this.onerror=null; this.src='${fallback}'">
-                
-                <div class="pdp-cs-info">
-                    <div class="pdp-cs-title">${product.name}</div>
-                    <a href="#" class="pdp-cs-link">Ver Detalles</a>
-                    <div class="color-dots">${colorsHtml}</div>
+                <div class="pdp-cs-left">
+                    <div class="pdp-cs-img-col">
+                        <img src="${currentImg}" alt="${product.name}" onerror="this.onerror=null; this.src='${fallback}'">
+                    </div>
+                    <div class="pdp-cs-info-col">
+                        <div class="pdp-cs-title">${product.name}</div>
+                        <a href="#" class="pdp-cs-link" onclick="event.preventDefault(); openDetailsModal('${product.id}')">Ver Detalles</a>
+                        <div class="color-dots">${colorsHtml}</div>
+                    </div>
                 </div>
-
-                <div class="pdp-cs-action-area">
+                <div class="pdp-cs-action-col">
                     <div class="pdp-cs-prices">
                         <span class="pdp-msrp-price">Normal: ${formatMoney(product.msrp)}</span>
                         <div class="pdp-price-row">
@@ -168,7 +229,9 @@ function renderPDPCrossSells() {
                         </div>
                         <div class="pdp-bundle-tag">${product.discountText}</div>
                     </div>
-                    <button class="pdp-cs-add-btn" onclick="addToCartFromPDP('${product.id}')">AGREGAR</button>
+                    <div class="pdp-add-btn-wrap">
+                        <button class="pdp-cs-add-btn" onclick="addToCartFromPDP('${product.id}')">AGREGAR</button>
+                    </div>
                 </div>
             </div>
         `;
@@ -186,7 +249,19 @@ function addToCartFromPDP(productId) {
     openCart();
 }
 
-// --- LÓGICA DEL CARRITO ---
+// --- LÓGICA DEL CARRITO Y TOOLTIPS ---
+function toggleTooltip(element, event) {
+    event.stopPropagation();
+    document.querySelectorAll('.badge-tooltip-wrap.active').forEach(el => {
+        if(el !== element) el.classList.remove('active');
+    });
+    element.classList.toggle('active');
+}
+
+document.addEventListener('click', () => {
+    document.querySelectorAll('.badge-tooltip-wrap.active').forEach(el => el.classList.remove('active'));
+});
+
 function openCart() {
     document.getElementById('cartDrawer').classList.add('active');
     document.getElementById('cartOverlay').classList.add('active');
@@ -284,7 +359,6 @@ function removeFromCart(cartItemId) {
     renderCart();
 }
 
-// --- RENDER CARRITO LATERAL ---
 function renderCart() {
     const container = document.getElementById('cart-items-container');
     if (!container) return;
@@ -330,8 +404,6 @@ function renderCart() {
         totalNormalPrice += item.msrp * item.quantity;
 
         let effectivePrice = item.salePrice;
-        
-        // DISEÑO DEL PRECIO EN EL CARRITO CON DOS LÍNEAS PARA EL MENSAJE
         let htmlMSRP = `<div class="price-msrp">Normal: ${formatMoney(item.msrp)}</div>`;
         let htmlSale = `<div class="price-sale">${formatMoney(item.salePrice)}</div>`;
         let htmlTag = '';
@@ -342,28 +414,25 @@ function renderCart() {
         } else if (!item.isMain && isMainProductInCart) {
             effectivePrice = item.bundlePrice;
             htmlTag = `
-                <div class="cross-sell-tag success">
-                    <div class="tag-title">
-                        <span class="material-symbols-outlined" style="font-size:12px;">check_circle</span> PACK EXTRA ACTIVADO
-                    </div>
-                    <div class="tag-subtitle">Se aplicó: ${item.discountText}</div>
+                <div class="badge-tooltip-wrap success" onclick="toggleTooltip(this, event)">
+                    <span class="material-symbols-outlined">check_circle</span>
+                    <span class="badge-text">PACK EXTRA ACTIVADO</span>
+                    <div class="tooltip-box">Se aplicó: ${item.discountText}</div>
                 </div>`;
         } else if (!item.isMain && !isMainProductInCart) {
             effectivePrice = item.salePrice; 
             htmlSale = ''; 
             htmlTag = `
-                <div class="cross-sell-tag warning">
-                    <div class="tag-title">
-                        <span class="material-symbols-outlined" style="font-size:12px;">info</span> PRECIO CON DSCTO. REGULAR APLICADO
-                    </div>
-                    <div class="tag-subtitle">Agrega la máquina y ahorra un 5% EXTRA</div>
+                <div class="badge-tooltip-wrap warning" onclick="toggleTooltip(this, event)">
+                    <span class="material-symbols-outlined">info</span>
+                    <span class="badge-text">PRECIO CON DSCTO. REGULAR</span>
+                    <div class="tooltip-box">Ahorra EXTRA completando tu pack</div>
                 </div>`;
         }
         
         totalFinalPrice += effectivePrice * item.quantity;
         const mainClass = item.isMain ? 'main-product' : '';
 
-        // Calcula el ahorro
         let itemSavings = (item.msrp - effectivePrice);
         let savingsHtml = '';
         if (itemSavings > 0) {
@@ -461,7 +530,6 @@ function renderCrossSellsDrawer() {
             </div>
         `).join('');
         
-        // DISEÑO DEL CAJON: Muestra DOBLE DESCUENTO
         const cardHTML = `
             <div class="cross-sell-card">
                 <div class="img-container">
@@ -522,7 +590,7 @@ function renderCheckoutSummary() {
             effectivePrice = item.bundlePrice;
             htmlTag = `<div style="font-size:11px; color:#059669; font-weight: bold; margin-top:2px;">Pack descuento activado</div>`;
         } else if (!item.isMain && !isMainProductInCart) {
-            htmlTag = `<div style="font-size:11px; color:var(--brand-red); font-weight: bold; margin-top:2px;">Dscto. regular aplicado (Falta máquina para 5% extra)</div>`;
+            htmlTag = `<div style="font-size:11px; color:var(--brand-red); font-weight: bold; margin-top:2px;">Dscto. regular aplicado</div>`;
         }
 
         const itemTotal = effectivePrice * item.quantity;

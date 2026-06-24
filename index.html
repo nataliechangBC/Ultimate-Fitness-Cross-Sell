@@ -54,13 +54,13 @@
             <!-- SECCIÓN PRINCIPAL DEL PRODUCTO -->
             <div class="uf-product-container">
                 
-                <!-- Galería Principal Izquierda -->
-                <div class="uf-gallery-stack">
-                    <div class="uf-main-image-large">
-                        <img id="main-product-img" src="" alt="Trotadora Principal">
+                <!-- GALERÍA (Alineada con Cross Sell) -->
+                <div class="uf-gallery-wrapper">
+                    <div class="uf-gallery-grid collapsed" id="main-gallery">
+                        <!-- JS Inyecta las imágenes aquí -->
                     </div>
-                    <div class="uf-thumbnails-row" id="uf-thumbnails">
-                        <!-- JS Inyecta las miniaturas aquí -->
+                    <div class="gallery-toggle-wrap" id="gallery-toggle-wrap">
+                        <button class="btn-gallery-toggle" id="btn-gallery-toggle" onclick="toggleGallery()">Ver toda la galería</button>
                     </div>
                 </div>
 
@@ -140,7 +140,7 @@
 
                     <!-- BUNDLE EN PÁGINA DE PRODUCTO -->
                     <div class="pdp-bundle-section">
-                        <h3 class="bundle-title">Completa tu equipo y Ahorra</h3>
+                        <h3 class="bundle-title">Completa tu Pack y Ahorra Extra</h3>
                         <div id="pdp-cross-sell-container">
                             <!-- JS inyecta la lista de cross-sell aquí -->
                         </div>
@@ -351,6 +351,43 @@
                     <div class="summary-total-line">
                         <span>Total</span>
                         <span><span style="font-size:12px; color:#666; margin-right:5px;">CLP</span><span id="checkout-total">$0</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL POP-UP (VER DETALLES) DISEÑO REUBICADO Y LIMPIO -->
+    <div class="modal-overlay" id="detailsModal" onclick="closeDetailsModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-modal-float" onclick="closeDetailsModal()"><span class="material-symbols-outlined" style="font-size: 20px;">close</span></button>
+            
+            <div class="modal-body-premium">
+                <!-- Izquierda: Imagen grande y limpia -->
+                <div class="modal-img-col">
+                    <img id="modal-img" src="" alt="Producto Modal">
+                </div>
+                
+                <!-- Derecha: Toda la info, variables, y precio/boton alineado -->
+                <div class="modal-info-col">
+                    <h3 id="modal-title" class="m-title">Título del Producto</h3>
+                    <p id="modal-desc" class="m-desc">Descripción del producto aquí.</p>
+                    
+                    <div class="modal-variant-section">
+                        <span class="modal-label">Color: <strong id="modal-color-name"></strong></span>
+                        <div class="color-dots" id="modal-colors"></div>
+                    </div>
+
+                    <div class="modal-action-row">
+                        <div class="modal-prices">
+                            <span class="m-msrp" id="modal-msrp">Normal: $0</span>
+                            <div class="m-price-row">
+                                <span class="m-sale" id="modal-sale">$0</span>
+                                <span class="m-bundle" id="modal-bundle">$0</span>
+                            </div>
+                            <div class="m-savings" id="modal-savings"></div>
+                        </div>
+                        <button class="modal-add-btn" onclick="addFromModal()">AGREGAR AL PACK</button>
                     </div>
                 </div>
             </div>
