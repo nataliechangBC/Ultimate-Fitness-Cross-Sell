@@ -38,15 +38,16 @@ header { padding: 15px 5%; border-bottom: 1px solid var(--border-color); display
 /* SECCIÓN PRODUCTO PRINCIPAL */
 .uf-product-container { max-width: 1400px; margin: 0 auto 50px; padding: 0 5%; display: grid; grid-template-columns: 1.4fr 1fr; gap: 50px; align-items: start; }
 
-/* GALERÍA (Toggle con Fade en Desktop, Scroll en Mobile) */
+/* GALERÍA (Se eliminó cualquier borde redondeado en el contenedor y elementos inferiores) */
 .uf-gallery-wrapper { position: relative; }
 .uf-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; transition: max-height 0.4s ease; max-height: none; }
-.uf-gallery-grid.collapsed { max-height: 1100px; overflow: hidden; } /* Altura exacta para alinear con sección derecha */
-.gallery-item { width: 100%; border-radius: 12px; background: #f8f8f8; overflow: hidden; aspect-ratio: 4/5; }
-.gallery-item:first-child { grid-column: span 2; aspect-ratio: auto; }
+.uf-gallery-grid.collapsed { max-height: 1100px; overflow: hidden; } 
+.gallery-item { width: 100%; border-radius: 12px 12px 0 0; background: #f8f8f8; overflow: hidden; aspect-ratio: 4/5; }
+.gallery-item:first-child { grid-column: span 2; aspect-ratio: auto; border-radius: 12px; }
 .gallery-item img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
 
-.gallery-toggle-wrap { position: absolute; bottom: 0; left: 0; width: 100%; display: flex; justify-content: center; padding: 120px 0 40px; background: linear-gradient(to top, rgba(255,255,255,1) 20%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%); pointer-events: none; z-index: 10; border-radius: 0 0 12px 12px; }
+/* El degradado cubre al 100% de forma recta y sólida abajo para eliminar las esquinas negras */
+.gallery-toggle-wrap { position: absolute; bottom: 0; left: 0; width: 100%; display: flex; justify-content: center; padding: 120px 0 40px; background: linear-gradient(to top, #ffffff 0%, #ffffff 20%, rgba(255,255,255,0.8) 60%, transparent 100%); pointer-events: none; z-index: 10; border-radius: 0; border: none; }
 .gallery-toggle-wrap.expanded { position: relative; background: none; padding: 30px 0 0 0; }
 
 .btn-gallery-toggle { pointer-events: auto; background: #fff; border: 1px solid var(--border-color); color: var(--premium-black); padding: 12px 32px; border-radius: 30px; font-weight: 800; font-size: 13px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
@@ -69,6 +70,7 @@ header { padding: 15px 5%; border-bottom: 1px solid var(--border-color); display
 .qty-number { font-size: 16px; font-weight: 600; width: 24px; text-align: center; }
 .uf-add-btn { flex: 1; background: var(--premium-black); color: #fff; border: none; border-radius: 30px; height: 48px; font-size: 15px; font-weight: bold; cursor: pointer; transition: background 0.3s; text-transform: uppercase; }
 .uf-add-btn:hover { background: var(--black-hover); }
+.uf-dark-bg { background-color: #000; color: #fff; }
 .uf-sku { font-size: 11px; color: #999; margin-bottom: 25px; }
 
 /* ACORDEONES */
@@ -80,7 +82,7 @@ header { padding: 15px 5%; border-bottom: 1px solid var(--border-color); display
 .accordion-item.active .accordion-content { max-height: 200px; padding-bottom: 18px; }
 .accordion-item.active .arrow { transform: rotate(45deg); }
 
-/* CROSS-SELL COMPACTO EN PÁGINA (Idéntico Web y Mobile) */
+/* CROSS-SELL COMPACTO EN PÁGINA */
 .pdp-bundle-section { padding-top: 15px; margin-top: 25px; margin-bottom: 30px; }
 .bundle-title { font-size: 20px; font-weight: 900; margin-bottom: 15px; color: var(--premium-black); letter-spacing: -0.5px; }
 
@@ -254,7 +256,10 @@ header { padding: 15px 5%; border-bottom: 1px solid var(--border-color); display
 .modal-img-col img { width: 100%; height: auto; object-fit: contain; mix-blend-mode: multiply; }
 .modal-info-col { flex: 1; display: flex; flex-direction: column; }
 .m-title { font-size: 18px; font-weight: 900; line-height: 1.2; margin-bottom: 8px; color: var(--premium-black); padding-right: 20px; }
-.m-desc { font-size: 13px; color: #555; line-height: 1.5; margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* FIX LINE CLAMP */
+.m-desc { font-size: 13px; color: #555; line-height: 1.5; margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 4; line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+
 .modal-variant-section { margin-bottom: 15px; }
 .modal-label { font-size: 12px; color: #555; display: block; margin-bottom: 8px; }
 .modal-label strong { color: var(--premium-black); }
@@ -262,11 +267,11 @@ header { padding: 15px 5%; border-bottom: 1px solid var(--border-color); display
 /* Fila de acción final integrada en la columna derecha */
 .modal-action-row { display: flex; justify-content: flex-end; align-items: center; gap: 20px; margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-color); }
 .modal-prices { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
-.m-msrp { font-size: 11px; color: #aaa; text-decoration: line-through; margin-bottom: 2px; }
-.m-price-row { display: flex; align-items: baseline; gap: 8px; }
+.m-msrp { font-size: 11px; color: #aaa; text-decoration: line-through; margin-bottom: 2px; width: 100%; text-align: right; }
+.m-price-row { display: flex; align-items: baseline; justify-content: flex-end; gap: 8px; width: 100%; }
 .m-sale { font-size: 13px; color: #777; text-decoration: line-through; font-weight: 500; }
 .m-bundle { font-size: 20px; font-weight: 900; color: var(--premium-black); }
-.m-savings { font-size: 11px; color: var(--brand-red); font-weight: bold; margin-top: 2px; }
+.m-savings { font-size: 11px; color: var(--brand-red); font-weight: bold; margin-top: 2px; width: 100%; text-align: right; }
 .modal-add-btn { background: var(--premium-black); color: #fff; border: none; padding: 14px 28px; font-size: 13px; font-weight: 900; border-radius: 30px; cursor: pointer; transition: background 0.3s; text-transform: uppercase; white-space: nowrap; }
 .modal-add-btn:hover { background: #333; }
 
@@ -314,15 +319,16 @@ header { padding: 15px 5%; border-bottom: 1px solid var(--border-color); display
     .cart-drawer { width: 100%; }
     .extra-details-grid { grid-template-columns: 1fr; }
 
-    /* Modal Responsive - Ajuste Precio a la Derecha */
+    /* Modal Responsive */
     .modal-content { padding: 25px 20px 20px; }
     .modal-body-premium { flex-direction: column; gap: 15px; }
     .modal-img-col { width: 100%; max-height: 140px; }
     .modal-img-col img { max-height: 140px; }
     
     .modal-action-row { flex-direction: row; justify-content: flex-end; align-items: center; gap: 15px; padding-top: 15px; }
-    .modal-prices { text-align: right; align-items: flex-end; }
-    .m-msrp { text-align: right; }
-    .m-savings { text-align: right; }
-    .modal-add-btn { padding: 12px 20px; font-size: 12px; width: auto; }
+    .modal-prices { text-align: right; align-items: flex-end; width: auto; }
+    .m-msrp { text-align: right; width: 100%; display: block; }
+    .m-price-row { justify-content: flex-end; }
+    .m-savings { text-align: right; width: 100%; display: block; }
+    .modal-add-btn { padding: 12px 20px; font-size: 12px; width: auto; flex-shrink: 0; }
 }
